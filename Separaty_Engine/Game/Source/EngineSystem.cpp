@@ -653,14 +653,8 @@ bool EngineSystem::Save_Texture(Texture* texture)
 	cursor += bytes;
 
 	
+	fopen_s(&file, filePath.c_str(), "w");
 	
-	if (&file != NULL) {
-		errno_t fp = fopen_s(&file, filePath.c_str(), "w");
-		if (!fp) {
-			fprintf(stderr, "error opening %s: %s", &file, strerror(errno));
-
-		}
-	}
 
 	if (file != NULL) {
 		fwrite(fileBuffer, sizeof(fileBuffer), 1, file);
