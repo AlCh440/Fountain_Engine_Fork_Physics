@@ -1,5 +1,8 @@
 #include "EngineSystem.h"
 #include "GOC_Camera.h"
+#include <stdio.h>
+#include <errno.h>
+#define _CRT_SECURE_NO_WARNINGS
 
 EngineSystem::EngineSystem()
 {
@@ -564,9 +567,11 @@ bool EngineSystem::Save_Mesh(Mesh* mesh)
 	
 	fopen_s(&file, filePath.c_str(), "w");
 	
-	fwrite(fileBuffer, sizeof(fileBuffer), 1, file);
+	if (file != NULL) {
+		fwrite(fileBuffer, sizeof(fileBuffer), 1, file);
 
-	fclose(file);
+		fclose(file);
+	}
 
 	filePath.clear();
 
@@ -647,12 +652,15 @@ bool EngineSystem::Save_Texture(Texture* texture)
 	memcpy(cursor, meshIndices, bytes);
 	cursor += bytes;
 
+	
 	fopen_s(&file, filePath.c_str(), "w");
+	
 
-	fwrite(fileBuffer, sizeof(fileBuffer), 1, file);
+	if (file != NULL) {
+		fwrite(fileBuffer, sizeof(fileBuffer), 1, file);
 
-	fclose(file);
-
+		fclose(file);
+	}
 	filePath.clear();
 
 

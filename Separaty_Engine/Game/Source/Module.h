@@ -1,7 +1,5 @@
 #pragma once
 
-class  PhysBody3D;
-
 #include "parson.h"
 #include <iostream>
 

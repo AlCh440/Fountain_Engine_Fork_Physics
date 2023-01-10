@@ -17,7 +17,7 @@
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-#define TITLE "Separaty Engine"
+#define TITLE "Fountain Engine"
 #define ORGANITZATION "UPC CITM"
 #define PATH_MODELS "Output/Assets/Project_1/Assets/Models"
 #define PATH_SHADERS "Source/Shaders"
@@ -47,5 +47,6 @@ enum update_status
 
 
 class Application;
-//I hope no one notices this...
+//I hope no one notices this... Brandon?
+//I noticed :) but dont worry
 extern Application* App;
