@@ -84,6 +84,7 @@ void Primitive::InnerRender() const
 void Primitive::SetPos(float x, float y, float z)
 {
 	transform.translate(x, y, z);
+	
 	//TODO 6: Set the body position to the new position too!
 }
 

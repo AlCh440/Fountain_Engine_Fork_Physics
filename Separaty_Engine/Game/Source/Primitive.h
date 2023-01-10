@@ -3,7 +3,7 @@
 #include "glmath.h"
 #include "Color.h"
 #include "MathGeoLib/Geometry/GeometryAll.h"
-
+#include "PhysBody.h"
 
 enum PrimitiveTypes
 {
@@ -35,8 +35,7 @@ public:
 
 private:
 
-
-	//TODO 4: Add a PhysBody to the primitive
+	PhysBody* phys;
 
 protected:
 	virtual void InnerRender() const;

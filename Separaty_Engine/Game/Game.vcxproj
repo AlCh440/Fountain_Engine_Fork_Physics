@@ -241,6 +241,7 @@
     <ClCompile Include="Source\ModuleUI.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Output.cpp" />
+    <ClCompile Include="Source\PhysBody.cpp" />
     <ClCompile Include="Source\PlayStop.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\ProjectPreferences.cpp" />
@@ -368,6 +369,7 @@
     <ClInclude Include="Source\ModuleUI.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\Output.h" />
+    <ClInclude Include="Source\PhysBody.h" />
     <ClInclude Include="Source\PlayStop.h" />
     <ClInclude Include="Source\Primitive.h" />
     <ClInclude Include="Source\ProjectPreferences.h" />

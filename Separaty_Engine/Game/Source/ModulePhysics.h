@@ -9,7 +9,7 @@
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
 
 class DebugDrawer;
-struct PhysBody3D;
+struct PhysBody;
 struct PhysVehicle3D;
 struct VehicleInfo;
 
@@ -26,11 +26,14 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	btRigidBody* AddSphere(const Prim_Sphere& sphere, float mass = 1.0f);
+	PhysBody* AddSphere(const Prim_Sphere& sphere, float mass = 1.0f);
 
 private:
 
-	std::vector<btRigidBody*> bodies;
+	std::vector<PhysBody*> bodies;
+	std::vector<btCollisionShape*> shapes;
+	std::vector<btDefaultMotionState*> motions;
+
 	bool debug;
 
 	btDefaultCollisionConfiguration* collision_conf;

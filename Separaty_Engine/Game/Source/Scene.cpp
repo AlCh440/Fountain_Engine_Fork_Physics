@@ -696,6 +696,7 @@ bool Scene::Start()
 update_status Scene::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+	
 	if (!gameObjects.empty())
 	{
 

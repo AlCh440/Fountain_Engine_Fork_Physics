@@ -4,7 +4,7 @@
 #include "Primitive.h"
 
 class Primitive;
-class PhysBody3D;
+class PhysBody;
 
 class ModuleSceneIntro : public Module
 {

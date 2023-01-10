@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-
+#include "PhysBody.h"
 #include "ModulePhysics.h"
 
 #ifdef _DEBUG
@@ -48,7 +48,9 @@ bool ModulePhysics::Start()
 	// LETS TRY SETTING SOME GROUND
 	btMotionState* motion = new btDefaultMotionState();
 	btCollisionShape* shape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
-	btRigidBody* ground = new btRigidBody(0, motion, shape);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, motion, shape);
+
+	btRigidBody* ground = new btRigidBody(rbInfo);
 	world->addRigidBody(ground);
 
 	return true;
@@ -68,10 +70,18 @@ update_status ModulePhysics::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
 		Prim_Sphere s(1);
-		s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+		
+		//s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+		s.SetPos(0, 10, 0);
 		float force = 30.0f;
-		AddSphere(s, 1);
+		AddSphere(s, 0);
 	}
+
+	if (debug == true)
+	{
+		world->debugDrawWorld();
+	}
+
 
 	return UPDATE_CONTINUE;
 }
@@ -79,6 +89,8 @@ update_status ModulePhysics::Update(float dt)
 // ---------------------------------------------------------
 update_status ModulePhysics::PostUpdate(float dt)
 {
+	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -92,10 +104,10 @@ bool ModulePhysics::CleanUp()
 	return true;
 }
 
-btRigidBody* ModulePhysics::AddSphere(const Prim_Sphere& sphere, float mass)
+PhysBody* ModulePhysics::AddSphere(const Prim_Sphere& sphere, float mass)
 {
 	btCollisionShape* colShape = new btSphereShape(sphere.radius);
-
+	shapes.push_back(colShape);
 
 	btTransform startTransform;
 	startTransform.setFromOpenGLMatrix(&sphere.transform);
@@ -105,17 +117,17 @@ btRigidBody* ModulePhysics::AddSphere(const Prim_Sphere& sphere, float mass)
 		colShape->calculateLocalInertia(mass, localInertia);
 
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	
+	motions.push_back(myMotionState);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
 
 	btRigidBody* body = new btRigidBody(rbInfo);
-	
+	PhysBody* pbody = new PhysBody(body);
 
-	bodies.push_back(body);
+	body->setUserPointer(pbody);
 	world->addRigidBody(body);
-	
+	bodies.push_back(pbody);
 
-	return body;
+	return pbody;
 }
 
 
