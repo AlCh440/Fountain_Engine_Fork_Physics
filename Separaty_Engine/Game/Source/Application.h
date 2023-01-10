@@ -10,7 +10,7 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-//#include "ModulePhysics.h"
+#include "ModulePhysics.h"
 #include "ModuleUI.h"
 #include "EngineSystem.h"
 
@@ -29,7 +29,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleUI* ui;
 	EngineSystem* engineSystem;
-	//ModulePhysics* physics;
+	ModulePhysics* physics;
 
 	bool debug;
 private:

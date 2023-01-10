@@ -9,7 +9,7 @@ Application::Application() : debug(false)
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	// i dunno the order yet so ill put physics just after camera for the moment
-	//physics = new ModulePhysics();
+	physics = new ModulePhysics();
 	ui = new ModuleUI();
 	engineSystem = new EngineSystem();
 
@@ -23,7 +23,7 @@ Application::Application() : debug(false)
 	AddModule(input);
 	AddModule(audio);
 	AddModule(engineSystem);
-	//AddModule(physics);
+	AddModule(physics);
 	
 	// Scenes
 	AddModule(scene_intro);
