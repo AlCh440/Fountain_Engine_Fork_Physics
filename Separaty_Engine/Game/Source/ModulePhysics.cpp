@@ -100,7 +100,7 @@ update_status ModulePhysics::Update(float dt)
 		
 		s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 		float force = 60.0f;
-		AddSphere(s, 1)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));;
+		AddSphere(&s, 1)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));;
 	}
 
 	if (debug == true)
@@ -130,13 +130,13 @@ bool ModulePhysics::CleanUp()
 	return true;
 }
 
-PhysBody* ModulePhysics::AddSphere(const Prim_Sphere& sphere, float mass)
+PhysBody* ModulePhysics::AddSphere(Prim_Sphere* sphere, float mass)
 {
-	btCollisionShape* colShape = new btSphereShape(sphere.radius);
+	btCollisionShape* colShape = new btSphereShape(sphere->radius);
 	shapes.push_back(colShape);
 
 	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&sphere.transform);
+	startTransform.setFromOpenGLMatrix(&sphere->transform);
 
 	btVector3 localInertia(0, 0, 0);
 	if (mass != 0.f)
@@ -149,6 +149,7 @@ PhysBody* ModulePhysics::AddSphere(const Prim_Sphere& sphere, float mass)
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody* pbody = new PhysBody(body);
 
+	sphere->phys = pbody;
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.push_back(pbody);
@@ -156,13 +157,13 @@ PhysBody* ModulePhysics::AddSphere(const Prim_Sphere& sphere, float mass)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::AddCube(const Prim_Cube& cube, float mass)
+PhysBody* ModulePhysics::AddCube(Prim_Cube* cube, float mass)
 {
-	btCollisionShape* colShape = new btBoxShape(btVector3(cube.size.x * 0.5f, cube.size.y * 0.5f, cube.size.z * 0.5f));
+	btCollisionShape* colShape = new btBoxShape(btVector3(cube->size.x * 0.5f, cube->size.y * 0.5f, cube->size.z * 0.5f));
 	shapes.push_back(colShape);
 
 	btTransform startTransform;
-	startTransform.setFromOpenGLMatrix(&cube.transform);
+	startTransform.setFromOpenGLMatrix(&cube->transform);
 
 	btVector3 localInertia(0, 0, 0);
 	if (mass != 0.f)
@@ -175,6 +176,7 @@ PhysBody* ModulePhysics::AddCube(const Prim_Cube& cube, float mass)
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody* pbody = new PhysBody(body);
 
+	cube->phys = pbody;
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.push_back(pbody);

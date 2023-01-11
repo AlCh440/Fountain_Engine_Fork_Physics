@@ -41,7 +41,7 @@ void GOC_Primitive::CreatePrimitive()
 	Prim_Cube* cube = new Prim_Cube(size.x, size.y, size.z);
 	cube->SetPos(pos.x, pos.y, pos.z);
 
-	App->physics->AddCube(*cube, 0);
+	App->physics->AddCube(cube, 0);
 	
 	primitive = cube;
 }

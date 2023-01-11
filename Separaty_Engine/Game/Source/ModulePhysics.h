@@ -26,8 +26,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	PhysBody* AddSphere(const Prim_Sphere& sphere, float mass = 1.0f);
-	PhysBody* AddCube(const Prim_Cube& cube, float mass = 1.0f);
+	PhysBody* AddSphere(Prim_Sphere* sphere, float mass = 1.0f);
+	PhysBody* AddCube(Prim_Cube* cube, float mass = 1.0f);
 
 	btDiscreteDynamicsWorld* world;
 
