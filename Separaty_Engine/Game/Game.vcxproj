@@ -351,6 +351,7 @@
     <ClInclude Include="Source\glmath.h" />
     <ClInclude Include="Source\Globals.h" />
     <ClInclude Include="Source\GOC_MeshRenderer.h" />
+    <ClInclude Include="Source\GOC_Primitive.h" />
     <ClInclude Include="Source\GOC_Texture.h" />
     <ClInclude Include="Source\GOC_Transform.h" />
     <ClInclude Include="Source\Hierarchy.h" />

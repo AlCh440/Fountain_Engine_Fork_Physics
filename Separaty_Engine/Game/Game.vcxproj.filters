@@ -309,6 +309,7 @@
     <ClCompile Include="Source\ModulePhysics.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PhysBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -688,6 +689,10 @@
     </ClInclude>
     <ClInclude Include="Source\ModulePhysics.h">
       <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhysBody.h" />
+    <ClInclude Include="Source\GOC_Primitive.h">
+      <Filter>Source\GameObject\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

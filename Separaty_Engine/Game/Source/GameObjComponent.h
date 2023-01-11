@@ -16,6 +16,7 @@ enum class GOC_Type
 	GOC_MESH_RENDERER = 1,
 	GOC_TEXTURE = 2,
 	GOC_CAMERA = 3,
+	GOC_PRIMITIVE,
 };
 
 

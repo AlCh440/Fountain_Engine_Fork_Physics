@@ -544,6 +544,13 @@ update_status Inspector::Update(float dt)
 									if (ImGui::MenuItem(m.name.c_str()))
 									{
 										renderer->SetMesh(&m);
+										// tried some things
+										//if (m.name == "Sphere")
+										//{
+										//	
+										//	Prim_Sphere* s = new Prim_Sphere(m.bbox.HalfSize().LengthSq() / 2, 0);
+										//	App->physics->AddSphere(*s, 0);
+										//}
 									}
 								}
 								ImGui::TreePop();
