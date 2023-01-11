@@ -87,7 +87,7 @@ void GOC_Primitive::CreateSphere()
 
 	GOC_Transform* comp_transform = (GOC_Transform*)gameObject->GetComponent(GOC_Type::GOC_TRANSFORM);
 	GOC_MeshRenderer* comp_mesh = (GOC_MeshRenderer*)gameObject->GetComponent(GOC_Type::GOC_MESH_RENDERER);
-	vec pos = comp_mesh->GetMesh().bbox.CenterPoint();
+	vec3 pos = comp_transform->GetPosition();
 	vec size = comp_mesh->GetMesh().bbox.Size();
 
 	Prim_Sphere* sphere = new Prim_Sphere(size.x, 0); //THIS IS TEMPORAL, SHOULDN'T BE SIZE.X BUT A REAL DISTANCE IN 3d
