@@ -7,6 +7,7 @@
 #include "UIFunctions.h"
 #include "Inspector.h"
 #include "GOC_Camera.h"
+#include "GOC_Primitive.h"
 #include "ModuleCamera3D.h"
 
 #include "imgui_stdlib.h"
@@ -740,6 +741,37 @@ update_status Inspector::Update(float dt)
 
 					}
 					break;
+					case GOC_Type::GOC_PRIMITIVE:
+					{
+						GOC_Primitive* prim = (GOC_Primitive*)component;
+
+						if (ImGui::CollapsingHeader("Primitive"))
+						{
+							if (ImGui::Button("Create Primitive"))
+							{
+								if (prim->primitive == NULL)
+								{
+									prim->CreatePrimitive();
+								}
+								else
+								{
+
+								}
+							}
+
+							if (ImGui::Button("Delete Primitive"))
+							{
+								if (prim->primitive != NULL)
+								{
+									prim->DeletePrimitive();
+								}
+								else
+								{
+
+								}
+							}
+						}
+					}
 					}
 
 				}

@@ -27,6 +27,9 @@ public:
 	bool CleanUp();
 
 	PhysBody* AddSphere(const Prim_Sphere& sphere, float mass = 1.0f);
+	PhysBody* AddCube(const Prim_Cube& cube, float mass = 1.0f);
+
+	btDiscreteDynamicsWorld* world;
 
 private:
 
@@ -40,7 +43,7 @@ private:
 	btCollisionDispatcher* dispatcher;
 	btBroadphaseInterface* broad_phase;
 	btSequentialImpulseConstraintSolver* solver;
-	btDiscreteDynamicsWorld* world;
+
 	btDefaultVehicleRaycaster* vehicle_raycaster;
 	DebugDrawer* debug_draw;
 

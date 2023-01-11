@@ -309,7 +309,12 @@
     <ClCompile Include="Source\ModulePhysics.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PhysBody.cpp" />
+    <ClCompile Include="Source\GOC_Primitive.cpp">
+      <Filter>Source\GameObject\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PhysBody.cpp">
+      <Filter>Source\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -690,9 +695,11 @@
     <ClInclude Include="Source\ModulePhysics.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PhysBody.h" />
     <ClInclude Include="Source\GOC_Primitive.h">
       <Filter>Source\GameObject\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhysBody.h">
+      <Filter>Source\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

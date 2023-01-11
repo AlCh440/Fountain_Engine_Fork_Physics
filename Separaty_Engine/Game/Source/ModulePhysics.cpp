@@ -48,6 +48,7 @@ ModulePhysics::ModulePhysics() : Module()
 
 	debug_draw = new DebugDrawer();
 
+	world = new btDiscreteDynamicsWorld(dispatcher, broad_phase, solver, collision_conf);
 }
 
 // Destructor
@@ -65,7 +66,7 @@ ModulePhysics::~ModulePhysics()
 // ---------------------------------------------------------
 bool ModulePhysics::Start()
 {
-	world = new btDiscreteDynamicsWorld(dispatcher, broad_phase, solver, collision_conf);
+	
 	world->setDebugDrawer(debug_draw);
 	world->setGravity(btVector3(0, -10, 0));
 
@@ -136,6 +137,32 @@ PhysBody* ModulePhysics::AddSphere(const Prim_Sphere& sphere, float mass)
 
 	btTransform startTransform;
 	startTransform.setFromOpenGLMatrix(&sphere.transform);
+
+	btVector3 localInertia(0, 0, 0);
+	if (mass != 0.f)
+		colShape->calculateLocalInertia(mass, localInertia);
+
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+	motions.push_back(myMotionState);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+
+	btRigidBody* body = new btRigidBody(rbInfo);
+	PhysBody* pbody = new PhysBody(body);
+
+	body->setUserPointer(pbody);
+	world->addRigidBody(body);
+	bodies.push_back(pbody);
+
+	return pbody;
+}
+
+PhysBody* ModulePhysics::AddCube(const Prim_Cube& cube, float mass)
+{
+	btCollisionShape* colShape = new btBoxShape(btVector3(cube.size.x * 0.5f, cube.size.y * 0.5f, cube.size.z * 0.5f));
+	shapes.push_back(colShape);
+
+	btTransform startTransform;
+	startTransform.setFromOpenGLMatrix(&cube.transform);
 
 	btVector3 localInertia(0, 0, 0);
 	if (mass != 0.f)

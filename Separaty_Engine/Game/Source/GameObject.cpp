@@ -16,14 +16,15 @@ bool GameObject::Init()
 {
 	AddComponent(GOC_Type::GOC_TRANSFORM);
 	transform = (GOC_Transform*)components[0];
+	AddComponent(GOC_Type::GOC_MESH_RENDERER);
+	AddComponent(GOC_Type::GOC_TEXTURE);
 	return true;
 }
 
 bool GameObject::Start()
 {
-	AddComponent(GOC_Type::GOC_MESH_RENDERER);
-	AddComponent(GOC_Type::GOC_TEXTURE);
 
+	AddComponent(GOC_Type::GOC_PRIMITIVE);
 
 
 	return true;
@@ -256,6 +257,7 @@ void GameObject::AddComponent(GOC_Type type)
 			return;
 		}
 	}
+	
 	GameObjectComponent* comp = engineSystem->CreateNewGOC(this, type);
 	components.push_back(comp);
 

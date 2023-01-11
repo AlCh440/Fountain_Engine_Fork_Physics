@@ -32,10 +32,11 @@ public:
 	mat4x4 transform;
 	bool axis,wire;
 	float lineWidth;
+	PhysBody* phys;
 
 private:
 
-	PhysBody* phys;
+
 
 protected:
 	virtual void InnerRender() const;

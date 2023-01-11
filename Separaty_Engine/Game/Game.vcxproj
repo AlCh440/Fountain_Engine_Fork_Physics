@@ -223,6 +223,7 @@
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
     <ClCompile Include="Source\GOC_MeshRenderer.cpp" />
+    <ClCompile Include="Source\GOC_Primitive.cpp" />
     <ClCompile Include="Source\GOC_Texture.cpp" />
     <ClCompile Include="Source\GOC_Transform.cpp" />
     <ClCompile Include="Source\Hierarchy.cpp" />

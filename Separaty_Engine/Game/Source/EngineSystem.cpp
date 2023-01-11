@@ -1,5 +1,6 @@
 #include "EngineSystem.h"
 #include "GOC_Camera.h"
+#include "GOC_Primitive.h"
 #include <stdio.h>
 #include <errno.h>
 #define _CRT_SECURE_NO_WARNINGS
@@ -217,6 +218,14 @@ GameObjectComponent* EngineSystem::CreateNewGOC(GameObject* goAttached, GOC_Type
 		allGameObjectComponents.push_back((GOC_Camera*)comp);
 		return (GOC_Camera*)comp;
 		
+	}
+	case GOC_Type::GOC_PRIMITIVE:
+	{
+		
+		GOC_Primitive* comp = new GOC_Primitive(goAttached, allGameObjectComponents.size());
+		allGameObjectComponents.push_back((GOC_Primitive*)comp);
+		return (GOC_Primitive*)comp;
+
 	}
 	break;
 	default:
