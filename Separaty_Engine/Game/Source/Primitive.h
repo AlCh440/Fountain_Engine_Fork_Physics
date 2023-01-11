@@ -100,7 +100,6 @@ public:
 
 	void SetOrigin(float x, float y, float z);
 	void SetDestination(float x, float y, float z);
-protected:
 	void InnerRender() const;
 public:
 	vec3 origin;

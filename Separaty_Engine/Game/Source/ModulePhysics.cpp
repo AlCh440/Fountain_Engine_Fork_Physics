@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "PhysBody.h"
 #include "ModulePhysics.h"
+#include "Bullet/include/LinearMath/btIDebugDraw.h"
 
 #ifdef _DEBUG
 #pragma comment (lib, "BulletDynamics_debug.lib")
@@ -13,6 +14,28 @@
 #pragma comment (lib, "Bullet/libx86/LinearMath.lib")
 #endif
 
+enum	DebugDrawModes
+{
+	DBG_NoDebug = 0,
+	DBG_DrawWireframe = 1,
+	DBG_DrawAabb = 2,
+	DBG_DrawFeaturesText = 4,
+	DBG_DrawContactPoints = 8,
+	DBG_NoDeactivation = 16,
+	DBG_NoHelpText = 32,
+	DBG_DrawText = 64,
+	DBG_ProfileTimings = 128,
+	DBG_EnableSatComparison = 256,
+	DBG_DisableBulletLCP = 512,
+	DBG_EnableCCD = 1024,
+	DBG_DrawConstraints = (1 << 11),
+	DBG_DrawConstraintLimits = (1 << 12),
+	DBG_FastWireframe = (1 << 13),
+	DBG_DrawNormals = (1 << 14),
+	DBG_DrawFrames = (1 << 15),
+	DBG_MAX_DEBUG_DRAW_MODE
+};
+
 ModulePhysics::ModulePhysics() : Module()
 {
 	debug = true;
@@ -22,7 +45,9 @@ ModulePhysics::ModulePhysics() : Module()
 	broad_phase = new btDbvtBroadphase();
 	solver = new btSequentialImpulseConstraintSolver();
 	
+
 	debug_draw = new DebugDrawer();
+
 }
 
 // Destructor
@@ -41,6 +66,7 @@ ModulePhysics::~ModulePhysics()
 bool ModulePhysics::Start()
 {
 	world = new btDiscreteDynamicsWorld(dispatcher, broad_phase, solver, collision_conf);
+	world->setDebugDrawer(debug_draw);
 	world->setGravity(btVector3(0, -10, 0));
 
 	world->setDebugDrawer(debug_draw);
@@ -71,10 +97,9 @@ update_status ModulePhysics::Update(float dt)
 	{
 		Prim_Sphere s(1);
 		
-		//s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-		s.SetPos(0, 10, 0);
-		float force = 30.0f;
-		AddSphere(s, 0);
+		s.SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+		float force = 60.0f;
+		AddSphere(s, 1)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));;
 	}
 
 	if (debug == true)
