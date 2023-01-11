@@ -91,6 +91,7 @@ void Primitive::SetPos(float x, float y, float z)
 // ------------------------------------------------------------
 void Primitive::SetRotation(float angle, const vec3 &u)
 {
+	
 	transform.rotate(angle, u);
 	//TODO 6: Set the body rotation to the new rotation too!
 }

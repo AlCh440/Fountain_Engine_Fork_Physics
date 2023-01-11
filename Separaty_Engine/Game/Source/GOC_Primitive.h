@@ -20,8 +20,10 @@ public:
 	void Render();
 	bool Execute();
 
-	void CreatePrimitive();
 	void DeletePrimitive();
+
+	void CreateCube();
+	void CreateSphere();
 
 	bool LoadState(JSON_Value* file, std::string root = "") override;
 	bool SaveState(JSON_Value* file, std::string root = "") const override;

@@ -751,11 +751,7 @@ update_status Inspector::Update(float dt)
 							{
 								if (prim->primitive == NULL)
 								{
-									prim->CreatePrimitive();
-								}
-								else
-								{
-
+									prim->CreateCube();
 								}
 							}
 
@@ -765,10 +761,21 @@ update_status Inspector::Update(float dt)
 								{
 									prim->DeletePrimitive();
 								}
-								else
-								{
+							}
 
+							if (ImGui::TreeNode("Change Primitive"))
+							{
+								//change into sphere!
+								if (ImGui::MenuItem("Sphere"))
+								{
+									prim->CreateSphere();
 								}
+
+								if (ImGui::MenuItem("Cube"))
+								{
+									prim->CreateCube();
+								}
+								ImGui::TreePop();
 							}
 						}
 					}
