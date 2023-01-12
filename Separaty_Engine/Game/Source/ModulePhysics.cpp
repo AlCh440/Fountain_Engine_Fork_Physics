@@ -130,6 +130,30 @@ bool ModulePhysics::CleanUp()
 	return true;
 }
 
+PhysBody* ModulePhysics::AddBody(Primitive* prim, PrimitiveTypes primType, float mass)
+{
+	switch (primType)
+	{
+	case Primitive_Point:
+		break;
+	case Primitive_Line:
+		break;
+	case Primitive_Plane:
+		break;
+	case Primitive_Cube:
+		return AddCube((Prim_Cube*)prim, mass);
+		break;
+	case Primitive_Sphere:
+		return AddSphere((Prim_Sphere*)prim, mass);
+		break;
+	case Primitive_Cylinder:
+		break;
+	default:
+		return NULL;
+		break;
+	}
+}
+
 PhysBody* ModulePhysics::AddSphere(Prim_Sphere* sphere, float mass)
 {
 	btCollisionShape* colShape = new btSphereShape(sphere->radius);

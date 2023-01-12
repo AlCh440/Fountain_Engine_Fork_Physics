@@ -1,4 +1,6 @@
 #include "Globals.h"
+#include "Application.h"
+#include "Bullet/include/BulletDynamics/Dynamics/btRigidBody.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "Primitive.h"
@@ -83,23 +85,61 @@ void Primitive::InnerRender() const
 // ------------------------------------------------------------
 void Primitive::SetPos(float x, float y, float z)
 {
-	transform.translate(x, y, z);
-	
-	//TODO 6: Set the body position to the new position too!
+	if (phys != NULL)
+	{
+		btRigidBody aux = *phys->body;
+		App->physics->world->removeRigidBody(phys->body);
+		delete(phys);
+
+		transform.translate(x, y, z);
+
+		phys = App->physics->AddBody(this, this->GetType(), aux.getInvMass());
+	}
+	else
+	{
+		transform.translate(x, y, z);
+	}
+
+
 }
 
 // ------------------------------------------------------------
 void Primitive::SetRotation(float angle, const vec3 &u)
 {
+	if (phys != NULL)
+	{
+		btRigidBody aux = *phys->body;
+		App->physics->world->removeRigidBody(phys->body);
+		delete(phys);
+
+		transform.rotate(angle, u);
+
+		phys = App->physics->AddBody(this, this->GetType(), aux.getInvMass());
+	}
+	else
+	{
+		transform.rotate(angle, u);
+	}
 	
-	transform.rotate(angle, u);
-	//TODO 6: Set the body rotation to the new rotation too!
 }
 
 // ------------------------------------------------------------
 void Primitive::Scale(float x, float y, float z)
 {
-	transform.scale(x, y, z);
+	if (phys != NULL)
+	{
+		btRigidBody aux = *phys->body;
+		App->physics->world->removeRigidBody(phys->body);
+		delete(phys);
+
+		transform.scale(x, y, z);
+
+		phys = App->physics->AddBody(this, this->GetType(), aux.getInvMass());
+	}
+	else
+	{
+		transform.scale(x, y, z);
+	}
 	//TODO 6: Set the body scale to the new scale too!
 }
 

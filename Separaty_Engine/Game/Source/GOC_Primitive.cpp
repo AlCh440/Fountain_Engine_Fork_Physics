@@ -44,7 +44,7 @@ void GOC_Primitive::CreateCube()
 
 	GOC_Transform* comp_transform = (GOC_Transform*)gameObject->GetComponent(GOC_Type::GOC_TRANSFORM);
 	GOC_MeshRenderer* comp_mesh = (GOC_MeshRenderer*)gameObject->GetComponent(GOC_Type::GOC_MESH_RENDERER);
-	vec3 pos = comp_transform->GetPosition();
+	vec3 pos = gameObject->transform->GetPosition();//comp_transform->GetPosition();
 	vec size = comp_mesh->GetMesh().bbox.Size();
 	float3 rot = gameObject->transform->rotationEulerLocal;
 	float c1 = cos(rot.x /2);
@@ -73,11 +73,12 @@ void GOC_Primitive::CreateCube()
 	}
 	//euler
 	Prim_Cube* cube = new Prim_Cube(size.x, size.y, size.z);
-	cube->SetRotation(angle * RADTODEG, vec3(x, y, z));
-	cube->SetPos(pos.x, pos.y + (size.y/2), pos.z);
+	
 	
 
 	App->physics->AddCube(cube, 0);
+	cube->SetRotation(angle * RADTODEG, vec3(x, y, z));
+	cube->SetPos(pos.x, pos.y + size.y/2, pos.z);
 	primitive = cube;
 }
 
@@ -91,9 +92,8 @@ void GOC_Primitive::CreateSphere()
 	vec size = comp_mesh->GetMesh().bbox.Size();
 
 	Prim_Sphere* sphere = new Prim_Sphere(size.x, 0); //THIS IS TEMPORAL, SHOULDN'T BE SIZE.X BUT A REAL DISTANCE IN 3d
-	sphere->SetPos(pos.x, pos.y, pos.z);
-
 	App->physics->AddSphere(sphere, 0);
+	sphere->SetPos(pos.x, pos.y, pos.z);
 	primitive = sphere;
 }
 

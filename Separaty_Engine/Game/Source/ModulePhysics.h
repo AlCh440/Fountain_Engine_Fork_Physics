@@ -26,6 +26,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	PhysBody* AddBody(Primitive* prim, PrimitiveTypes primType, float mass);
 	PhysBody* AddSphere(Prim_Sphere* sphere, float mass = 1.0f);
 	PhysBody* AddCube(Prim_Cube* cube, float mass = 1.0f);
 
