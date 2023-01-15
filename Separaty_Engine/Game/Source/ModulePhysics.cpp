@@ -78,6 +78,7 @@ bool ModulePhysics::Start()
 
 	world->setDebugDrawer(debug_draw);
 
+	
 	// LETS TRY SETTING SOME GROUND
 	btMotionState* motion = new btDefaultMotionState();
 	btCollisionShape* shape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
@@ -214,7 +215,7 @@ PhysBody* ModulePhysics::AddCube(Prim_Cube* cube, float mass)
 	return pbody;
 }
 
-PhysVehicle* ModulePhysics::AddVehicle(const VehicleInfo& info)
+PhysVehicle* ModulePhysics::AddVehicle(const VehicleInfo& info, btDefaultVehicleRaycaster* vehicle_raycaster)
 {
 	btCompoundShape* comShape = new btCompoundShape();
 	shape.add(comShape);

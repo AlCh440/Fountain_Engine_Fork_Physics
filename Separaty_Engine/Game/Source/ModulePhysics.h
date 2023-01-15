@@ -30,7 +30,7 @@ public:
 	PhysBody* AddBody(Primitive* prim, PrimitiveTypes primType, float mass);
 	PhysBody* AddSphere(Prim_Sphere* sphere, float mass = 1.0f);
 	PhysBody* AddCube(Prim_Cube* cube, float mass = 1.0f);
-	PhysVehicle* AddVehicle(const VehicleInfo& info);
+	PhysVehicle* AddVehicle(const VehicleInfo& info, btDefaultVehicleRaycaster* vehicle_raycaster);
 
 	btDiscreteDynamicsWorld* world;
 
@@ -51,7 +51,7 @@ private:
 
 	p2List<btCollisionShape*> shape;
 
-	btDefaultVehicleRaycaster* vehicle_raycaster;
+
 	DebugDrawer* debug_draw;
 
 	p2List<PhysVehicle*> vehicles;

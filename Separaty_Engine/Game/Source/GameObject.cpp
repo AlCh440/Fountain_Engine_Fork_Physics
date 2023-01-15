@@ -382,7 +382,7 @@ bool ModuleVehicle::StartVehicle()
 {
 	//LOG("Loading player");
 
-
+	vehicle_raycaster = new btDefaultVehicleRaycaster(App->physics->world);
 
 
 
@@ -482,7 +482,7 @@ bool ModuleVehicle::StartVehicle()
 	//car.joint = App->physics->AddBody(Cube(0.1f,0.1f,0.1f),1.0f);
 
 
-	vehicle = App->physics->AddVehicle(car);
+	vehicle = App->physics->AddVehicle(car, vehicle_raycaster);
 	vehicle->SetPos(0, 1, 10);
 
 	vehicle->collision_listeners.add(this);

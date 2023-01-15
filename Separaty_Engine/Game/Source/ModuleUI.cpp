@@ -271,12 +271,15 @@ update_status ModuleUI::Update(float dt)
 					cleanPrimitives = true;
 				}
 				ImGui::TreePop();
-				ImGui::Separator();
-				if (ImGui::MenuItem("Create Vehicle"))
-				{
-					App->engineSystem->GetCurrentScene()->CreateNewGameObjectVechicle();
-				}
+				
+				
 			}
+			ImGui::Separator();
+			if (ImGui::MenuItem("Create Vehicle"))
+			{
+				App->engineSystem->GetCurrentScene()->CreateNewGameObjectVechicle();
+			}
+			
 			/*ImGui::Separator();
 
 			if (ImGui::TreeNode("Import Models"))

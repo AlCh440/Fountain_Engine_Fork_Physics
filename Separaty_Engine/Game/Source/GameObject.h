@@ -13,6 +13,8 @@
 #include "PhysVehicle3D.h"
 #include "GameObject.h"
 
+
+class btDefaultVehicleRaycaster;
 class EngineSystem;
 enum class GOC_Type;
 //class GameObjectComponent;
@@ -126,7 +128,7 @@ public:
 
 	bool  following_camera;
 
-
+	btDefaultVehicleRaycaster* vehicle_raycaster;
 
 	float drag;
 	float lift;
