@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "p2List.h"
 
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
@@ -29,24 +30,31 @@ public:
 	PhysBody* AddBody(Primitive* prim, PrimitiveTypes primType, float mass);
 	PhysBody* AddSphere(Prim_Sphere* sphere, float mass = 1.0f);
 	PhysBody* AddCube(Prim_Cube* cube, float mass = 1.0f);
+	PhysVehicle3D* AddVehicle(const VehicleInfo& info);
 
 	btDiscreteDynamicsWorld* world;
 
 private:
 
+	
+
+	bool debug;
+
 	std::vector<PhysBody*> bodies;
 	std::vector<btCollisionShape*> shapes;
 	std::vector<btDefaultMotionState*> motions;
-
-	bool debug;
 
 	btDefaultCollisionConfiguration* collision_conf;
 	btCollisionDispatcher* dispatcher;
 	btBroadphaseInterface* broad_phase;
 	btSequentialImpulseConstraintSolver* solver;
 
+	p2List<btCollisionShape*> shape;
+
 	btDefaultVehicleRaycaster* vehicle_raycaster;
 	DebugDrawer* debug_draw;
+
+	p2List<PhysVehicle3D*> vehicles;
 
 	
 };

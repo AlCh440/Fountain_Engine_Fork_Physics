@@ -1,6 +1,10 @@
 #pragma once
+#ifndef __PhysBody_H__
+#define __PhysBody_H__
 
 
+
+#include "p2List.h"
 
 class btRigidBody;
 
@@ -23,15 +27,19 @@ public:
 	void SetAngularVelocity(float x, float y, float z);
 	vec3 GetLinearVelocity() const;
 
-	const vec3 GetPos() const;
+	//const vec3 GetPos() const;
 
 public:
 
 	
 	
+	//btRigidBody* body;
+	p2List<Module*> collision_listeners;
 	btRigidBody* body;
+	//ColissionObject collType;
 	
 
 private:
 	
 };
+#endif

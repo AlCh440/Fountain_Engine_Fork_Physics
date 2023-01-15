@@ -166,6 +166,7 @@
     <ClCompile Include="Source\AppData.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Assets.cpp" />
+    <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\GOC_Camera.cpp" />
     <ClCompile Include="Source\External\Imgui\imgui.cpp" />
@@ -258,6 +259,7 @@
     <ClInclude Include="Source\AppData.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Assets.h" />
+    <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\GOC_Camera.h" />
     <ClInclude Include="Source\External\Imgui\imconfig.h" />
@@ -372,6 +374,8 @@
     <ClInclude Include="Source\ModuleUI.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
     <ClInclude Include="Source\Output.h" />
+    <ClInclude Include="Source\p2List.h" />
+    <ClInclude Include="Source\p2Point.h" />
     <ClInclude Include="Source\PhysBody.h" />
     <ClInclude Include="Source\PhysVehicle3D.h" />
     <ClInclude Include="Source\PlayStop.h" />

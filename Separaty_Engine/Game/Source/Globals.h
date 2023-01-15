@@ -35,6 +35,13 @@
 
 typedef unsigned int uint;
 typedef unsigned char uchar;
+enum CollisionObject
+{
+	NONE = 1,
+	CAR,
+	WALL,
+	
+};
 
 enum update_status
 {
