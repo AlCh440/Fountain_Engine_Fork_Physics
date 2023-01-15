@@ -10,7 +10,7 @@
 #include "Model.h"
 #include "Shader.h"
 #include "TextureLoader.h"
-
+#include "Car.h"
 #include <Assimp/include/Importer.hpp>
 #include <Assimp/include/scene.h>
 
@@ -19,7 +19,7 @@ class Scene;
 class Mesh;
 class Model;
 class Shader;
-
+class ModuleVehicle;
 
 class EngineSystem : public Module
 {
@@ -53,6 +53,7 @@ public:
 	bool Save();
 
 	GameObject* CreateNewGameObject();
+	ModuleVehicle* CreateNewGameObjectVehicle();
 	GameObjectComponent* CreateNewGOC(GameObject* goAttached, GOC_Type type);
 
 	bool Save_Mesh(Mesh* mesh); 

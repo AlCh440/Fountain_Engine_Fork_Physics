@@ -52,11 +52,11 @@ struct VehicleInfo
 };
 
 
-struct PhysVehicle3D : public PhysBody
+struct PhysVehicle : public PhysBody
 {
 public:
-	PhysVehicle3D(btRigidBody* body, btRaycastVehicle* vehicle, const VehicleInfo& info);
-	~PhysVehicle3D();
+	PhysVehicle(btRigidBody* body, btRaycastVehicle* vehicle, const VehicleInfo& info);
+	~PhysVehicle();
 
 	void Render();
 	void ApplyEngineForce(float force);

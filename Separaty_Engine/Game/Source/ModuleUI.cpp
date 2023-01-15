@@ -4,7 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "UIFunctions.h"
-
+#include "Car.h"
 
 
 #include <string> 
@@ -271,7 +271,11 @@ update_status ModuleUI::Update(float dt)
 					cleanPrimitives = true;
 				}
 				ImGui::TreePop();
-
+				ImGui::Separator();
+				if (ImGui::MenuItem("Create Vehicle"))
+				{
+					App->engineSystem->GetCurrentScene()->CreateNewGameObjectVechicle();
+				}
 			}
 			/*ImGui::Separator();
 

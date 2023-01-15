@@ -214,7 +214,7 @@ PhysBody* ModulePhysics::AddCube(Prim_Cube* cube, float mass)
 	return pbody;
 }
 
-PhysVehicle3D* ModulePhysics::AddVehicle(const VehicleInfo& info)
+PhysVehicle* ModulePhysics::AddVehicle(const VehicleInfo& info)
 {
 	btCompoundShape* comShape = new btCompoundShape();
 	shape.add(comShape);
@@ -267,7 +267,7 @@ PhysVehicle3D* ModulePhysics::AddVehicle(const VehicleInfo& info)
 	}
 	// ---------------------
 
-	PhysVehicle3D* pvehicle = new PhysVehicle3D(_body, vehicle, info);
+	PhysVehicle* pvehicle = new PhysVehicle(_body, vehicle, info);
 	_body->setUserPointer(pvehicle);
 	//pvehicle->body = _body;
 	world->addVehicle(vehicle);

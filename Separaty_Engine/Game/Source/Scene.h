@@ -3,10 +3,11 @@
 #include "Globals.h"
 #include "Module.h"
 #include "GameObject.h"
+#include "Car.h"
 
 class EngineSystem;
 class GameObject;
-
+class ModuleVehicle;
 class GOC_MeshRenderer;
 
 class Scene : public Module
@@ -26,6 +27,7 @@ public:
 	bool SaveState(JSON_Value* file, std::string root = "") const override;
 	
 	GameObject* CreateNewGameObject();
+	ModuleVehicle* CreateNewGameObjectVechicle();
 
 	std::vector<GameObject*> GetGameObjectList() const
 	{

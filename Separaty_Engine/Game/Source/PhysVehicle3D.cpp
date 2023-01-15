@@ -10,18 +10,18 @@ VehicleInfo::~VehicleInfo()
 }
 
 // ----------------------------------------------------------------------------
-PhysVehicle3D::PhysVehicle3D(btRigidBody* body, btRaycastVehicle* vehicle, const VehicleInfo& info) : PhysBody(body), vehicle(vehicle), info(info)
+PhysVehicle::PhysVehicle(btRigidBody* body, btRaycastVehicle* vehicle, const VehicleInfo& info) : PhysBody(body), vehicle(vehicle), info(info)
 {
 }
 
 // ----------------------------------------------------------------------------
-PhysVehicle3D::~PhysVehicle3D()
+PhysVehicle::~PhysVehicle()
 {
 	delete vehicle;
 }
 
 // ----------------------------------------------------------------------------
-void PhysVehicle3D::Render()
+void PhysVehicle::Render()
 {
 	Prim_Cylinder wheel;
 
@@ -53,7 +53,7 @@ void PhysVehicle3D::Render()
 }
 
 // ----------------------------------------------------------------------------
-void PhysVehicle3D::ApplyEngineForce(float force)
+void PhysVehicle::ApplyEngineForce(float force)
 {
 	for (int i = 0; i < vehicle->getNumWheels(); ++i)
 	{
@@ -65,7 +65,7 @@ void PhysVehicle3D::ApplyEngineForce(float force)
 }
 
 // ----------------------------------------------------------------------------
-void PhysVehicle3D::Brake(float force)
+void PhysVehicle::Brake(float force)
 {
 	for (int i = 0; i < vehicle->getNumWheels(); ++i)
 	{
@@ -77,7 +77,7 @@ void PhysVehicle3D::Brake(float force)
 }
 
 // ----------------------------------------------------------------------------
-void PhysVehicle3D::Turn(float degrees)
+void PhysVehicle::Turn(float degrees)
 {
 	for (int i = 0; i < vehicle->getNumWheels(); ++i)
 	{
@@ -89,12 +89,12 @@ void PhysVehicle3D::Turn(float degrees)
 }
 
 // ----------------------------------------------------------------------------
-float PhysVehicle3D::GetKmh() const
+float PhysVehicle::GetKmh() const
 {
 	return vehicle->getCurrentSpeedKmHour();
 }
 
-vec3 PhysVehicle3D::GetForwardVector() const
+vec3 PhysVehicle::GetForwardVector() const
 {
 	btVector3 h = vehicle->getForwardVector();
 	vec3 ret;

@@ -9,12 +9,21 @@
 #include "GOC_Transform.h"
 #include "GOC_Texture.h"
 
+#include "p2Point.h"
+#include "PhysVehicle3D.h"
+#include "GameObject.h"
+
 class EngineSystem;
 enum class GOC_Type;
 //class GameObjectComponent;
 class GOC_MeshRenderer;
 class GOC_Transform;
 //class GOC_Texture;
+
+
+#define MAX_ACCELERATION 1000.0f
+#define TURN_DEGREES 15.0f * DEGTORAD
+#define BRAKE_POWER 1000.0f
 
 struct WindowGameObjectInfo
 {
@@ -83,10 +92,43 @@ public:
 
 	bool pendingToDelete = false;
 
-private:
-
 	EngineSystem* engineSystem;
 	std::vector<GameObjectComponent*> components;
+private:
+
+	
 
 };
 
+class ModuleVehicle : public GameObject
+{
+public:
+	ModuleVehicle(Application* app, bool start_enabled = true);
+	ModuleVehicle(uint id, EngineSystem* system, bool start_enabled = true);
+	virtual ~ModuleVehicle();
+
+	bool StartVehicle();
+	update_status Update(float dt);
+	bool CleanUp();
+	//void RestartPlayer(int x, int y, int z);
+	void OnCollision(PhysBody* body1, PhysBody* body2);
+
+public:
+	VehicleInfo car;
+	PhysVehicle* vehicle;
+	//Sphere* decor;
+	//PhysBody3D* decorBody;
+	float turn;
+	float acceleration;
+	float brake;
+	float liftForce;
+	bool alive;
+
+	bool  following_camera;
+
+
+
+	float drag;
+	float lift;
+	float friction;
+};

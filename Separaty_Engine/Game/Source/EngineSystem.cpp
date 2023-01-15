@@ -186,6 +186,25 @@ GameObject* EngineSystem::CreateNewGameObject()
 	return go;
 }
 
+ModuleVehicle* EngineSystem::CreateNewGameObjectVehicle()
+{
+	ModuleVehicle* go = new ModuleVehicle(gameObjectsLastID, this);
+
+	std::string gameobject_name = "GameObjectVehicle " + std::to_string(gameObjectsLastID);
+
+	go->name = gameobject_name;
+	go->Init();
+	go->Start();
+	go->StartVehicle();
+	allGameObjects.push_back(go);
+
+	gameObjectsLastID++;
+	App->ui->AppendToOutput(DEBUG_LOG("Created GameObject, id: %i", go->GetID()));
+
+	return go;
+}
+
+
 GameObjectComponent* EngineSystem::CreateNewGOC(GameObject* goAttached, GOC_Type type)
 {
 	

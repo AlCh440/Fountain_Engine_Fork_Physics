@@ -793,6 +793,15 @@ GameObject* Scene::CreateNewGameObject()
 	return go;
 }
 
+ModuleVehicle* Scene::CreateNewGameObjectVechicle()
+{
+	ModuleVehicle* go = engineSystem->CreateNewGameObjectVehicle();
+
+	gameObjects.push_back(go);
+
+	return go;
+}
+
 GameObject* Scene::GetSelectedGameObject()
 {
 	for (GameObject* go : gameObjects)
