@@ -18,6 +18,21 @@ PrimitiveTypes Primitive::GetType() const
 	return type;
 }
 
+void Primitive::GetPosRotScale(float3 &pos, float3 &rot, float3 &scale)
+{
+	if (transform.M != NULL) {
+		aiMatrix4x4 a((ai_real)transform.M[0], (ai_real)transform.M[4], (ai_real)transform.M[8], (ai_real)transform.M[12], (ai_real)transform.M[1], (ai_real)transform.M[5], (ai_real)transform.M[9], (ai_real)transform.M[13], (ai_real)transform.M[2], (ai_real)transform.M[6], (ai_real)transform.M[10], (ai_real)transform.M[14], (ai_real)transform.M[3], (ai_real)transform.M[7], (ai_real)transform.M[11], (ai_real)transform.M[15]);
+		aiVector3D position;
+		aiVector3D rotation;
+		aiVector3D scale_;
+		a.Decompose(scale_, rotation, position);
+
+		pos = float3(position.x, position.y, position.z);
+		rot = float3(rotation.x, rotation.y, rotation.z);
+		scale = float3(scale_.x, scale_.y, scale_.z);
+	}
+}
+
 void Primitive::Update()
 {
 	//TODO 5: Set the primitive position and rotation to the PhysBody position and rotation

@@ -166,7 +166,7 @@ update_status Inspector::Update(float dt)
 
 								Quat rotatorQuat = Quat::FromEulerXYZ(newRotationEuler.x, newRotationEuler.y, newRotationEuler.z);
 								aiQuaternion rotationQuat(rotatorQuat.w, rotatorQuat.x, rotatorQuat.y, rotatorQuat.z);
-
+							
 
 								aiMatrix3x3* tempMat3 = new aiMatrix3x3;
 
@@ -747,6 +747,7 @@ update_status Inspector::Update(float dt)
 
 						if (ImGui::CollapsingHeader("Primitive"))
 						{
+
 							if (ImGui::Button("Create Primitive"))
 							{
 								if (prim->primitive == NULL)
@@ -761,6 +762,55 @@ update_status Inspector::Update(float dt)
 								{
 									prim->DeletePrimitive();
 								}
+							}
+
+							if (ImGui::TreeNode("Modify Primitive"))
+							{
+								float3 pos;
+								float3 rot;
+								float3 scale;
+
+								prim->primitive->GetPosRotScale(pos, rot, scale);
+
+								if (ImGui::DragFloat3("Translate", &pos[0]), .005f, 0.0f, 0.0f, "%.2f");
+								{
+									prim->primitive->SetPos(pos.x, pos.y, pos.z);
+								};
+
+								if (ImGui::DragFloat3("Rotate", &rot[0], .01f, 0.0f, 0.0f, "%.2f"))
+								{
+									float c1 = cos(rot.x / 2);
+									float c2 = cos(rot.y / 2);
+									float c3 = cos(rot.z / 2);
+									float s1 = sin(rot.x / 2);
+									float s2 = sin(rot.y / 2);
+									float s3 = sin(rot.z / 2);
+
+									float w = c1 * c2 * c3 - s1 * s2 * s3;
+									float x = c1 * c2 * s3 + s1 * s2 * c3;
+									float y = s1 * c2 * c3 + c1 * s2 * s3;
+									float z = c1 * s2 * c3 - s1 * c2 * s3;
+									float angle = 2 * acos(w);
+									double norm = x * x + y * y + z * z;
+									if (norm < 0.001) { // when all euler angles are zero angle =0 so
+										// we can set axis to anything to avoid divide by zero
+										x = 1;
+										y = z = 0;
+									}
+									else {
+										norm = sqrt(norm);
+										x /= norm;
+										y /= norm;
+										z /= norm;
+									}
+
+									prim->primitive->SetRotation(angle* RADTODEG, vec3(x, y, z));
+
+
+
+								};
+								
+								ImGui::TreePop();
 							}
 
 							if (ImGui::TreeNode("Change Primitive"))

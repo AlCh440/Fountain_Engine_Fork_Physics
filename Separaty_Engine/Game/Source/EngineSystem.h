@@ -10,7 +10,6 @@
 #include "Model.h"
 #include "Shader.h"
 #include "TextureLoader.h"
-#include "Car.h"
 #include <Assimp/include/Importer.hpp>
 #include <Assimp/include/scene.h>
 

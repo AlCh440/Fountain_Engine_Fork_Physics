@@ -3,7 +3,6 @@
 #include "Globals.h"
 #include "Module.h"
 #include "GameObject.h"
-#include "Car.h"
 
 class EngineSystem;
 class GameObject;

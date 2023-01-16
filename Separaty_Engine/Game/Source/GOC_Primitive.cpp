@@ -47,6 +47,7 @@ void GOC_Primitive::CreateCube()
 	vec3 pos = gameObject->transform->GetPosition();//comp_transform->GetPosition();
 	vec size = comp_mesh->GetMesh().bbox.Size();
 	float3 rot = gameObject->transform->rotationEulerLocal;
+
 	float c1 = cos(rot.x /2);
 	float c2 = cos(rot.y /2);
 	float c3 = cos(rot.z /2);

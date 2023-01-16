@@ -24,8 +24,10 @@ public:
 	virtual void	Render() const;
 	void			SetPos(float x, float y, float z);
 	void			SetRotation(float angle, const vec3 &u);
+
 	void			Scale(float x, float y, float z);
 	PrimitiveTypes	GetType() const;
+	void GetPosRotScale(float3& pos, float3& rot, float3& scale);
 
 
 	Color color;
