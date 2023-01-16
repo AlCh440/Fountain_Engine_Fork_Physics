@@ -1,6 +1,10 @@
 #include "GameObject.h"
 #include "ModuleInput.h"
 
+#define MAX_ACCELERATION 1000.0f
+#define TURN_DEGREES 15.0f * DEGTORAD
+#define BRAKE_POWER 1000.0f
+
 GameObject::GameObject(uint id, EngineSystem* system, bool start_enabled)
 {
 	this->id = id;
@@ -511,7 +515,7 @@ update_status ModuleVehicle::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if (alive)
+	if (vehicle)
 	{
 		lift = 0.000325f * (3 * 4) * (pow(vehicle->GetKmh(), 2) * 1.225f) / 2; //Lift = Cl * A * v^2 * density / 2
 		btVector3 liftVec = { 0, -10.0f + lift, 0 };
