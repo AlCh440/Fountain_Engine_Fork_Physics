@@ -51,10 +51,21 @@ GOC_Camera::GOC_Camera(GameObject* gameObjectAttached, int id)
 	frustum.horizontalFov = 2.f * atan(tan(frustum.verticalFov * 0.5f) * (SCREEN_WIDTH / SCREEN_HEIGHT));
 
 	frustumColor = Color(0, 1, 0, 1);
+
+	cameraBody = new btCollisionObject();
+
+	collShape = new btSphereShape(2);
+	
+	cameraBody->setCollisionShape(collShape);
+	
+	App->physics->world->addCollisionObject(cameraBody);
 }
 
 bool GOC_Camera::Execute()
 {
+
+	btTransform a;
+	cameraBody->setWorldTransform(a);
 
 	UpdateFrustum();
 

@@ -46,7 +46,13 @@ bool ModuleCamera3D::Start()
 	goCamera->frustum.horizontalFov = 60 * DEGTORAD;
 	goCamera->frustum.SetKind(FrustumProjectiveSpace::FrustumSpaceD3D, FrustumRightHanded);
 
+	cameraBody = new btCollisionObject();
 
+	collShape = new btSphereShape(2);
+
+	cameraBody->setCollisionShape(collShape);
+
+	App->physics->world->addCollisionObject(cameraBody);
 
 	goCamera->drawFrustum = false;
 	goCamera->useCameraWhileInPlay = true;
@@ -65,6 +71,8 @@ bool ModuleCamera3D::CleanUp()
 update_status ModuleCamera3D::Update(float dt)
 {
 
+	
+
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 	vec3 newPos(0,0,0);
@@ -75,7 +83,10 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos.y -= speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	{
+		newPos -= Z * speed;
+	}
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT 
 	&& !(App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_DOWN))
 		newPos += Z * speed;
@@ -181,6 +192,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 		// Recalculate matrix -------------
 		CalculateViewMatrix();
+		mat4x4 mat = GetViewMatrix();
+		cameraBody->setWorldTransform(btTransform(GetViewMatrix3(), btVector3( btScalar(mat.M[12]), btScalar(mat.M[13]), btScalar(mat.M[14]))));
+
+
+		
 	}
 
 
@@ -403,6 +419,12 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 mat4x4 ModuleCamera3D::GetViewMatrix()
 {
 	return ViewMatrix;
+}
+
+btMatrix3x3 ModuleCamera3D::GetViewMatrix3()
+{
+	mat4x4 a(GetViewMatrix());
+	return btMatrix3x3((btScalar)a.M[0], (btScalar)a.M[4], (btScalar)a.M[8], (btScalar)a.M[1], (btScalar)a.M[5], (btScalar)a.M[9], (btScalar)a.M[2], (btScalar)a.M[6], (btScalar)a.M[10]);
 }
 
 // -----------------------------------------------------------------

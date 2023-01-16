@@ -128,8 +128,8 @@ void Primitive::SetRotation(float angle, const vec3 &u)
 		delete(phys);
 
 		transform.rotate(angle, u);
-
-		phys = App->physics->AddBody(this, this->GetType(), aux.getInvMass());
+		
+		phys = App->physics->AddBody(this, this->GetType(), -aux.getInvMass());
 	}
 	else
 	{

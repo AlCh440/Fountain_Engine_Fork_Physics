@@ -767,11 +767,13 @@ update_status Inspector::Update(float dt)
 							if (ImGui::TreeNode("Modify Primitive"))
 							{
 								float3 pos;
-								float3 rot;
+								float3 rot_;
 								float3 scale;
 
-								prim->primitive->GetPosRotScale(pos, rot, scale);
+								prim->primitive->GetPosRotScale(pos, rot_, scale);
 
+								rot_ = rot_ * RADTODEG;
+								float3 rot(rot_.y, rot_.x, rot_.z);
 								if (ImGui::DragFloat3("Translate", &pos[0]), .005f, 0.0f, 0.0f, "%.2f");
 								{
 									prim->primitive->SetPos(pos.x, pos.y, pos.z);
@@ -779,12 +781,13 @@ update_status Inspector::Update(float dt)
 
 								if (ImGui::DragFloat3("Rotate", &rot[0], .01f, 0.0f, 0.0f, "%.2f"))
 								{
-									float c1 = cos(rot.x / 2);
-									float c2 = cos(rot.y / 2);
-									float c3 = cos(rot.z / 2);
-									float s1 = sin(rot.x / 2);
-									float s2 = sin(rot.y / 2);
-									float s3 = sin(rot.z / 2);
+									rot = rot * DEGTORAD;
+									float c1 = cos(rot.y / 2);
+									float c2 = cos(rot.z / 2);
+									float c3 = cos(rot.x / 2);
+									float s1 = sin(rot.y / 2);
+									float s2 = sin(rot.z / 2);
+									float s3 = sin(rot.x / 2);
 
 									float w = c1 * c2 * c3 - s1 * s2 * s3;
 									float x = c1 * c2 * s3 + s1 * s2 * c3;
@@ -810,6 +813,10 @@ update_status Inspector::Update(float dt)
 
 								};
 								
+								if (ImGui::DragFloat3("Scale", &scale[0], .01f, 0.0f, 0.0f, "%.2f"))
+								{
+									prim->primitive->Scale(scale.x, scale.y, scale.z);
+								}
 								ImGui::TreePop();
 							}
 

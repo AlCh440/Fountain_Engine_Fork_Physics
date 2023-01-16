@@ -11,7 +11,9 @@
 #include "EngineSystem.h" 
 
 class EngineSystem;
-
+class btMatrix3x3;
+class btCollisionObject;
+class btSphereShape;
 
 class ModuleCamera3D : public Module
 {
@@ -29,7 +31,7 @@ public:
 	void LookAt(const vec3 &Spot);
 	void Move(const vec3 &Movement);
 	mat4x4 GetViewMatrix();
-
+	btMatrix3x3 GetViewMatrix3();
 	void SetCamera(GOC_Camera* camera)
 	{
 		//if (this->currentCamera != nullptr)
@@ -39,6 +41,8 @@ public:
 		this->currentCamera = camera;
 	}
 
+	btCollisionObject* cameraBody;
+	btSphereShape* collShape;
 
 	vec3 prevPos;
 	vec3 prevReference;

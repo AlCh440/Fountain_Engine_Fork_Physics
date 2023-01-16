@@ -17,7 +17,8 @@
 
 class GameObject;
 class GameObjectComponent;
-
+class btCollisionObject;
+class btSphereShape;
 class GOC_Camera : public GameObjectComponent
 {
 public:
@@ -45,6 +46,8 @@ public:
 public:
 	Frustum frustum;
 
+	btCollisionObject* cameraBody;
+	btSphereShape* collShape;
 	float nearPlaneDistance = 0.0f;
 	float farPlaneDistance = 0.0f;
 	float verticalFov = 0.0f;
