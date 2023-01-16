@@ -318,6 +318,9 @@
     <ClCompile Include="Source\PhysVehicle3D.cpp">
       <Filter>Source\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Car.cpp">
+      <Filter>Source\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -705,6 +708,9 @@
       <Filter>Source\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Source\PhysVehicle3D.h">
+      <Filter>Source\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Car.h">
       <Filter>Source\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Source\p2List.h">
