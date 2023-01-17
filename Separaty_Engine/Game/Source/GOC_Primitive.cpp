@@ -30,19 +30,23 @@ void GOC_Primitive::Render()
 
 bool GOC_Primitive::Execute()
 {
-	if (primitive == NULL)
+	if (primitive == NULL && first_prim)
 	{
-		//CreateCube();
-		CreateCubeFromAABB();
+		CreateCube();
+		//CreateCubeFromAABB();
+		first_prim = false;
 	}
 	return true;
 }
 
 void GOC_Primitive::DeletePrimitive()
 {
-	App->physics->world->removeRigidBody(primitive->phys->body);
-	primitive->phys->~PhysBody();
-	primitive = NULL;
+	if (primitive->phys != NULL)
+	{
+		App->physics->world->removeRigidBody(primitive->phys->body);
+		primitive->phys->~PhysBody();
+		primitive = NULL;
+	}
 }
 
 void GOC_Primitive::CreateCubeFromAABB()
@@ -54,14 +58,67 @@ void GOC_Primitive::CreateCubeFromAABB()
 	float3 size = bbox.Size().xyz();
 	float3 centerPos = bbox.CenterPoint();
 	vec3 pos = gameObject->transform->GetPosition();
+	float3 rot = gameObject->transform->rotationEulerLocal;
+	vec p1 = bbox.CornerPoint(0);
+	vec p2 = bbox.CornerPoint(0);
+	vec aux(0, 0, 0);
+	for (int i = 0; i < 7; i++)
+	{
+		aux = bbox.CornerPoint(i);
+		
+		if (aux.x >= p1.x && aux.y >= p1.y && aux.z >= p1.z)
+		{
+			p1 = aux;
+		}
+
+		if (aux.x <= p2.x && aux.y <= p2.y && aux.z <= p2.z)
+		{
+			p2 = aux;
+		}
+	}
+	Prim_Cube* cube = new Prim_Cube(p1.x - p2.x, p1.y - p2.y, p1.z - p2.z);
+	App->physics->AddCube(cube, 0);
 	
 
-	Prim_Cube* cube = new Prim_Cube(size.x, size.y, size.z);
-
-	App->physics->AddCube(cube, 0);
-	//cube->SetRotation(angle * RADTODEG, vec3(x, y, z));
 	cube->SetPos(pos.x + centerPos.x, pos.y + centerPos.y, pos.z + centerPos.z);
 	primitive = cube;
+	
+	
+	//float   c1 = cos(rot.y / 2);
+	//float	s1 = sin(rot.y / 2);
+	//float	c2 = cos(rot.z / 2);
+	//float	s2 = sin(rot.z / 2);
+	//float	c3 = cos(rot.x / 2);
+	//float	s3 = sin(rot.x / 2);
+	//float	c1c2 = c1 * c2;
+	//float	s1s2 = s1 * s2;
+	//float	w = c1c2 * c3 - s1s2 * s3;
+	//float	x = c1c2 * s3 + s1s2 * c3;
+	//float	y = s1 * c2 * c3 + c1 * s2 * s3;
+	//float	z = c1 * s2 * c3 - s1 * c2 * s3;
+	//float	angle = 2 * acos(w);
+	//
+	//float norm = x * x + y * y + z * z;
+	//if (norm < 0.001)
+	//{
+	//	x = 1;
+	//	y = 0;
+	//	z = 0;
+	//}
+	//else
+	//{
+	//	norm = sqrt(norm);
+	//	x /= norm;
+	//	y /= norm;
+	//	z /= norm;
+	//}
+	//
+	//Prim_Cube* cube = new Prim_Cube(size.x, size.y, size.z);
+	//Prim_Cube()
+	//App->physics->AddCube(cube, 0);
+	//cube->SetRotation(angle * RADTODEG, vec3(x, y, z));
+	//cube->SetPos(pos.x + centerPos.x, pos.y + centerPos.y, pos.z + centerPos.z);
+	//primitive = cube;
 }
 
 void GOC_Primitive::CreateCube()
@@ -75,37 +132,42 @@ void GOC_Primitive::CreateCube()
 	vec size = comp_mesh->GetMesh().bbox.Size();
 	float3 rot = gameObject->transform->rotationEulerLocal;
 
-	float c1 = cos(rot.x /2);
-	float c2 = cos(rot.y /2);
-	float c3 = cos(rot.z /2);
-	float s1 = sin(rot.x /2);
-	float s2 = sin(rot.y /2);
-	float s3 = sin(rot.z /2);
 
-	float w = c1*c2 * c3 - s1*s2 * s3;
-	float x = c1*c2 * s3 + s1*s2 * c3;
-	float y = s1 * c2 * c3 + c1 * s2 * s3;
-	float z = c1 * s2 * c3 - s1 * c2 * s3;
-	float angle = 2 * acos(w);
-	double norm = x * x + y * y + z * z;
-	if (norm < 0.001) { // when all euler angles are zero angle =0 so
-		// we can set axis to anything to avoid divide by zero
-		x = 1;
-		y = z = 0;
-	}
-	else {
-		norm = sqrt(norm);
-		x /= norm;
-		y /= norm;
-		z /= norm;
-	}
+	Quat rotatorQuat = Quat::FromEulerXYZ(rot.x, rot.y, rot.z);
+	float angle;
+	float4 axis;
+	rotatorQuat.ToAxisAngle(axis, angle);
+	//float c1 = cos(rot.x /2);
+	//float c2 = cos(rot.y /2);
+	//float c3 = cos(rot.z /2);
+	//float s1 = sin(rot.x /2);
+	//float s2 = sin(rot.y /2);
+	//float s3 = sin(rot.z /2);
+	//
+	//float w = c1*c2 * c3 - s1*s2 * s3;
+	//float x = c1*c2 * s3 + s1*s2 * c3;
+	//float y = s1 * c2 * c3 + c1 * s2 * s3;
+	//float z = c1 * s2 * c3 - s1 * c2 * s3;
+	//float angle = 2 * acos(w);
+	//double norm = x * x + y * y + z * z;
+	//if (norm < 0.001) { // when all euler angles are zero angle =0 so
+	//	// we can set axis to anything to avoid divide by zero
+	//	x = 1;
+	//	y = z = 0;
+	//}
+	//else {
+	//	norm = sqrt(norm);
+	//	x /= norm;
+	//	y /= norm;
+	//	z /= norm;
+	//}
 	//euler
 	Prim_Cube* cube = new Prim_Cube(size.x, size.y, size.z);
 	
 	
 
 	App->physics->AddCube(cube, 0);
-	cube->SetRotation(angle * RADTODEG, vec3(x, y, z));
+	cube->SetRotation(angle * RADTODEG, vec3(axis.x, axis.y, axis.z));
 	cube->SetPos(pos.x + centerPos.x, pos.y + centerPos.y, pos.z + centerPos.z);
 	primitive = cube;
 }

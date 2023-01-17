@@ -166,7 +166,7 @@ update_status Inspector::Update(float dt)
 
 								Quat rotatorQuat = Quat::FromEulerXYZ(newRotationEuler.x, newRotationEuler.y, newRotationEuler.z);
 								aiQuaternion rotationQuat(rotatorQuat.w, rotatorQuat.x, rotatorQuat.y, rotatorQuat.z);
-							
+						
 
 								aiMatrix3x3* tempMat3 = new aiMatrix3x3;
 
@@ -756,6 +756,14 @@ update_status Inspector::Update(float dt)
 								}
 							}
 
+							if (ImGui::Button("Create Primitive From AABB"))
+							{
+								if (prim->primitive == NULL)
+								{
+									prim->CreateCubeFromAABB();
+								}
+							}
+
 							if (ImGui::Button("Delete Primitive"))
 							{
 								if (prim->primitive != NULL)
@@ -770,52 +778,55 @@ update_status Inspector::Update(float dt)
 								float3 rot_;
 								float3 scale;
 
-								prim->primitive->GetPosRotScale(pos, rot_, scale);
-
-								rot_ = rot_ * RADTODEG;
-								float3 rot(rot_.y, rot_.x, rot_.z);
-								if (ImGui::DragFloat3("Translate", &pos[0]), .005f, 0.0f, 0.0f, "%.2f");
+								if (prim->primitive != NULL)
 								{
-									prim->primitive->SetPos(pos.x, pos.y, pos.z);
-								};
+									prim->primitive->GetPosRotScale(pos, rot_, scale);
 
-								if (ImGui::DragFloat3("Rotate", &rot[0], .01f, 0.0f, 0.0f, "%.2f"))
-								{
-									rot = rot * DEGTORAD;
-									float c1 = cos(rot.y / 2);
-									float c2 = cos(rot.z / 2);
-									float c3 = cos(rot.x / 2);
-									float s1 = sin(rot.y / 2);
-									float s2 = sin(rot.z / 2);
-									float s3 = sin(rot.x / 2);
+									rot_ = rot_ * RADTODEG;
+									float3 rot(rot_.y, rot_.x, rot_.z);
+									if (ImGui::DragFloat3("Translate", &pos[0]), .005f, 0.0f, 0.0f, "%.2f");
+									{
+										prim->primitive->SetPos(pos.x, pos.y, pos.z);
+									};
 
-									float w = c1 * c2 * c3 - s1 * s2 * s3;
-									float x = c1 * c2 * s3 + s1 * s2 * c3;
-									float y = s1 * c2 * c3 + c1 * s2 * s3;
-									float z = c1 * s2 * c3 - s1 * c2 * s3;
-									float angle = 2 * acos(w);
-									double norm = x * x + y * y + z * z;
-									if (norm < 0.001) { // when all euler angles are zero angle =0 so
-										// we can set axis to anything to avoid divide by zero
-										x = 1;
-										y = z = 0;
+									if (ImGui::DragFloat3("Rotate", &rot[0], .01f, 0.0f, 0.0f, "%.2f"))
+									{
+										rot = rot * DEGTORAD;
+										float c1 = cos(rot.y / 2);
+										float c2 = cos(rot.z / 2);
+										float c3 = cos(rot.x / 2);
+										float s1 = sin(rot.y / 2);
+										float s2 = sin(rot.z / 2);
+										float s3 = sin(rot.x / 2);
+
+										float w = c1 * c2 * c3 - s1 * s2 * s3;
+										float x = c1 * c2 * s3 + s1 * s2 * c3;
+										float y = s1 * c2 * c3 + c1 * s2 * s3;
+										float z = c1 * s2 * c3 - s1 * c2 * s3;
+										float angle = 2 * acos(w);
+										double norm = x * x + y * y + z * z;
+										if (norm < 0.001) { // when all euler angles are zero angle =0 so
+											// we can set axis to anything to avoid divide by zero
+											x = 1;
+											y = z = 0;
+										}
+										else {
+											norm = sqrt(norm);
+											x /= norm;
+											y /= norm;
+											z /= norm;
+										}
+
+										prim->primitive->SetRotation(angle * RADTODEG, vec3(x, y, z));
+
+
+
+									};
+
+									if (ImGui::DragFloat3("Scale", &scale[0], .01f, 0.0f, 0.0f, "%.2f"))
+									{
+										prim->primitive->Scale(scale.x, scale.y, scale.z);
 									}
-									else {
-										norm = sqrt(norm);
-										x /= norm;
-										y /= norm;
-										z /= norm;
-									}
-
-									prim->primitive->SetRotation(angle* RADTODEG, vec3(x, y, z));
-
-
-
-								};
-								
-								if (ImGui::DragFloat3("Scale", &scale[0], .01f, 0.0f, 0.0f, "%.2f"))
-								{
-									prim->primitive->Scale(scale.x, scale.y, scale.z);
 								}
 								ImGui::TreePop();
 							}

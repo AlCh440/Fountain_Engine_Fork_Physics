@@ -487,7 +487,7 @@ bool ModuleVehicle::StartVehicle()
 
 
 	vehicle = App->physics->AddVehicle(car, vehicle_raycaster);
-	vehicle->SetPos(0, 1, 10);
+	vehicle->SetPos(0, 5, 10);
 
 	vehicle->collision_listeners.add(this);
 

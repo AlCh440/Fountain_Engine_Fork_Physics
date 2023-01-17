@@ -169,6 +169,15 @@ Prim_Cube::Prim_Cube(float sizeX, float sizeY, float sizeZ) : Primitive(), size(
 	type = PrimitiveTypes::Primitive_Cube;
 }
 
+Prim_Cube::Prim_Cube(float3 p1, float3 p2) : Primitive(), size(p1.x - p2.x, p1.y - p2.y, p1.z - p2.z)
+{
+	size.x = p1.x - p2.x;
+	size.y = p1.y - p2.y;
+	size.z = p1.z - p2.z;
+
+	type = PrimitiveTypes::Primitive_Cube;
+}
+
 void Prim_Cube::SetSize(float sizeX, float sizeY, float sizeZ)
 {
 	size.x = sizeX;

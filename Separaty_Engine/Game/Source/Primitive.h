@@ -51,6 +51,7 @@ class Prim_Cube : public Primitive
 public :
 	Prim_Cube();
 	Prim_Cube(float sizeX, float sizeY, float sizeZ);
+	Prim_Cube(float3 p1, float3 p2);
 
 	void SetSize(float sizeX, float sizeY, float sizeZ);
 protected:
