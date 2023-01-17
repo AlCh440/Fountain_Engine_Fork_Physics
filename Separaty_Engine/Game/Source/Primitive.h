@@ -28,7 +28,7 @@ public:
 	void			Scale(float x, float y, float z);
 	PrimitiveTypes	GetType() const;
 	void GetPosRotScale(float3& pos, float3& rot, float3& scale);
-
+	void GetPosRotScaleAxis(float3& pos, float3& rot, float& angle, float3& scale);
 
 	Color color;
 	mat4x4 transform;

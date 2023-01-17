@@ -32,9 +32,34 @@ bool GOC_Primitive::Execute()
 {
 	if (primitive == NULL && first_prim)
 	{
-		CreateCube();
+		CreateCube(gameObject->mass);
 		//CreateCubeFromAABB();
 		first_prim = false;
+		ChangeMass(gameObject->mass);
+	}
+
+	if (primitive != NULL)
+	{
+		//if (gameObject->mass != -primitive->phys->body->getInvMass())
+		//{
+		//	ChangeMass(gameObject->mass);
+		//}
+		GOC_Transform* comp_transform = (GOC_Transform*)gameObject->GetComponent(GOC_Type::GOC_TRANSFORM);
+		
+		
+		btTransform a = primitive->phys->body->getCenterOfMassTransform();
+	
+		//gameObject->transform->set;
+		btVector3 pos = a.getOrigin();
+		gameObject->transform->SetPos(pos.x(), pos.y(), pos.z());
+		gameObject->transform->ApplyTransformations();
+		//comp_transform->SetPos(pos.x, pos.y, pos.z);
+		
+		//comp_transform->ApplyTransformationsWorld();
+		//gameObject->transform->SetPos(pos.x, pos.y, pos.z);
+		//gameObject->transform->SetRotation(axis, vec3(rot.x, rot.y, rot.z));
+
+
 	}
 	return true;
 }
@@ -121,7 +146,7 @@ void GOC_Primitive::CreateCubeFromAABB()
 	//primitive = cube;
 }
 
-void GOC_Primitive::CreateCube()
+void GOC_Primitive::CreateCube(float mass)
 {
 	if (primitive != NULL) DeletePrimitive();
 
@@ -137,42 +162,19 @@ void GOC_Primitive::CreateCube()
 	float angle;
 	float4 axis;
 	rotatorQuat.ToAxisAngle(axis, angle);
-	//float c1 = cos(rot.x /2);
-	//float c2 = cos(rot.y /2);
-	//float c3 = cos(rot.z /2);
-	//float s1 = sin(rot.x /2);
-	//float s2 = sin(rot.y /2);
-	//float s3 = sin(rot.z /2);
-	//
-	//float w = c1*c2 * c3 - s1*s2 * s3;
-	//float x = c1*c2 * s3 + s1*s2 * c3;
-	//float y = s1 * c2 * c3 + c1 * s2 * s3;
-	//float z = c1 * s2 * c3 - s1 * c2 * s3;
-	//float angle = 2 * acos(w);
-	//double norm = x * x + y * y + z * z;
-	//if (norm < 0.001) { // when all euler angles are zero angle =0 so
-	//	// we can set axis to anything to avoid divide by zero
-	//	x = 1;
-	//	y = z = 0;
-	//}
-	//else {
-	//	norm = sqrt(norm);
-	//	x /= norm;
-	//	y /= norm;
-	//	z /= norm;
-	//}
-	//euler
+	
 	Prim_Cube* cube = new Prim_Cube(size.x, size.y, size.z);
 	
 	
 
-	App->physics->AddCube(cube, 0);
+	App->physics->AddCube(cube, mass);
 	cube->SetRotation(angle * RADTODEG, vec3(axis.x, axis.y, axis.z));
-	cube->SetPos(pos.x + centerPos.x, pos.y + centerPos.y, pos.z + centerPos.z);
+	cube->SetPos(pos.x, pos.y, pos.z);
+	//cube->SetPos(pos.x + centerPos.x, pos.y + centerPos.y, pos.z + centerPos.z);
 	primitive = cube;
 }
 
-void GOC_Primitive::CreateSphere()
+void GOC_Primitive::CreateSphere(float mass)
 {
 	if (primitive != NULL) DeletePrimitive();
 
@@ -181,10 +183,17 @@ void GOC_Primitive::CreateSphere()
 	vec3 pos = comp_transform->GetPosition();
 	vec size = comp_mesh->GetMesh().bbox.Size();
 
-	Prim_Sphere* sphere = new Prim_Sphere(size.x, 0); //THIS IS TEMPORAL, SHOULDN'T BE SIZE.X BUT A REAL DISTANCE IN 3d
-	App->physics->AddSphere(sphere, 0);
+	Prim_Sphere* sphere = new Prim_Sphere(size.x, mass); //THIS IS TEMPORAL, SHOULDN'T BE SIZE.X BUT A REAL DISTANCE IN 3d
+	App->physics->AddSphere(sphere, mass);
 	sphere->SetPos(pos.x, pos.y, pos.z);
 	primitive = sphere;
+}
+
+void GOC_Primitive::ChangeMass(float mass)
+{
+	App->physics->world->removeRigidBody(primitive->phys->body);
+	App->physics->AddBody(primitive, primitive->GetType(), mass);
+	gameObject->mass = mass;
 }
 
 bool GOC_Primitive::LoadState(JSON_Value* file, std::string root)

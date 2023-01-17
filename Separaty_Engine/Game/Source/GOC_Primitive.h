@@ -24,9 +24,10 @@ public:
 	void DeletePrimitive();
 
 	void CreateCubeFromAABB();
-	void CreateCube();
-	void CreateSphere();
+	void CreateCube(float mass = 0);
+	void CreateSphere(float mass = 0);
 
+	void ChangeMass(float mass);
 	bool LoadState(JSON_Value* file, std::string root = "") override;
 	bool SaveState(JSON_Value* file, std::string root = "") const override;
 

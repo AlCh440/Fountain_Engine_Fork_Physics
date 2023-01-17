@@ -1,6 +1,6 @@
 #include "GameObject.h"
 #include "ModuleInput.h"
-
+#include "GOC_Primitive.h"
 #define MAX_ACCELERATION 10000.0f
 #define TURN_DEGREES 15.0f * DEGTORAD
 #define BRAKE_POWER 10000.0f
@@ -54,7 +54,20 @@ update_status GameObject::Update(float dt)
 
 update_status GameObject::PostUpdate(float dt)
 {
+	GOC_Primitive* comp_prim = (GOC_Primitive*)GetComponent(GOC_Type::GOC_PRIMITIVE);
+	GOC_Transform* comp_transform = (GOC_Transform*)GetComponent(GOC_Type::GOC_TRANSFORM);
 
+	if (comp_prim->primitive != NULL)
+	{
+		//float3 pos;
+		//float3 rot;
+		//float3 scale;
+		//float axis;
+		//
+		//comp_prim->primitive->GetPosRotScaleAxis(pos, rot, axis, scale);
+		//transform->translationLocal.translate(pos.x, pos.y, pos.z);
+		//transform->ApplyTransformations();
+	}
 	return UPDATE_CONTINUE;
 }
 
