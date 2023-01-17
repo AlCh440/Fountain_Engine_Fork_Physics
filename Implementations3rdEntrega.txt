@@ -1,0 +1,12 @@
+For the Physics engine, we have implemented the following:
+
+
+-We have implemented the p2pConstraints.To activate it, you must select it in the 
+ GameObject Menu, in the UI bar.
+
+-We have implemented a physical car, which can be moved with the asrrows controls. 
+ The car colides with the houses. To activate the car, you must select it in the 
+ GameObject Menu, in the UI bar.
+
+
+We have tried to do the following, it is started but noty finished, because we ran out of time, and we may didn't have the ability to get it:
