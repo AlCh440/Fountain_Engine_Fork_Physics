@@ -80,12 +80,12 @@ bool ModulePhysics::Start()
 
 	
 	// LETS TRY SETTING SOME GROUND
-	btMotionState* motion = new btDefaultMotionState();
-	btCollisionShape* shape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, motion, shape);
-
-	btRigidBody* ground = new btRigidBody(rbInfo);
-	world->addRigidBody(ground);
+	//btMotionState* motion = new btDefaultMotionState();
+	//btCollisionShape* shape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
+	//btRigidBody::btRigidBodyConstructionInfo rbInfo(0.0f, motion, shape);
+	//
+	//btRigidBody* ground = new btRigidBody(rbInfo);
+	//world->addRigidBody(ground);
 
 	return true;
 }

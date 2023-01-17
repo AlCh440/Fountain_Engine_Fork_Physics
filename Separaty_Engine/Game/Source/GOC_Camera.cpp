@@ -52,20 +52,20 @@ GOC_Camera::GOC_Camera(GameObject* gameObjectAttached, int id)
 
 	frustumColor = Color(0, 1, 0, 1);
 
-	cameraBody = new btCollisionObject();
+	//cameraBody = new btCollisionObject();
 
-	collShape = new btSphereShape(2);
+	//collShape = new btSphereShape(2);
 	
-	cameraBody->setCollisionShape(collShape);
+	//cameraBody->setCollisionShape(collShape);
 	
-	App->physics->world->addCollisionObject(cameraBody);
+	//App->physics->world->addCollisionObject(cameraBody);
 }
 
 bool GOC_Camera::Execute()
 {
 
-	btTransform a;
-	cameraBody->setWorldTransform(a);
+	//btTransform a;
+	//cameraBody->setWorldTransform(a);
 
 	UpdateFrustum();
 

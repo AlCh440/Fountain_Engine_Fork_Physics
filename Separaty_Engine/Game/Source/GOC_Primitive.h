@@ -22,6 +22,7 @@ public:
 
 	void DeletePrimitive();
 
+	void CreateCubeFromAABB();
 	void CreateCube();
 	void CreateSphere();
 

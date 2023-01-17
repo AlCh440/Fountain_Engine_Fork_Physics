@@ -46,13 +46,13 @@ bool ModuleCamera3D::Start()
 	goCamera->frustum.horizontalFov = 60 * DEGTORAD;
 	goCamera->frustum.SetKind(FrustumProjectiveSpace::FrustumSpaceD3D, FrustumRightHanded);
 
-	cameraBody = new btCollisionObject();
+	//cameraBody = new btCollisionObject();
 
-	collShape = new btSphereShape(2);
+	//collShape = new btSphereShape(2);
 
-	cameraBody->setCollisionShape(collShape);
+	//cameraBody->setCollisionShape(collShape);
 
-	App->physics->world->addCollisionObject(cameraBody);
+//	App->physics->world->addCollisionObject(cameraBody);
 
 	goCamera->drawFrustum = false;
 	goCamera->useCameraWhileInPlay = true;
@@ -192,8 +192,8 @@ update_status ModuleCamera3D::Update(float dt)
 
 		// Recalculate matrix -------------
 		CalculateViewMatrix();
-		mat4x4 mat = GetViewMatrix();
-		cameraBody->setWorldTransform(btTransform(GetViewMatrix3(), btVector3( btScalar(mat.M[12]), btScalar(mat.M[13]), btScalar(mat.M[14]))));
+		//mat4x4 mat = GetViewMatrix();
+		//cameraBody->setWorldTransform(btTransform(GetViewMatrix3(), btVector3( btScalar(mat.M[12]), btScalar(mat.M[13]), btScalar(mat.M[14]))));
 
 
 		

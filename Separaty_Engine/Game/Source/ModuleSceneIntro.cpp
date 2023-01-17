@@ -27,7 +27,7 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	plane.SetNormal(0, 1, 0);
+	//plane.SetNormal(0, 1, 0);
 
 	/*gameObject = new GameObject();
 	gameObject->Init();
@@ -57,7 +57,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	/*gameObject->Update(dt);
 	gameObject->PostUpdate(dt);*/
 
-	plane.Render();
+	//plane.Render();
 	//cube.Render();
 	//sphere.Render();
 	////cil.Render();

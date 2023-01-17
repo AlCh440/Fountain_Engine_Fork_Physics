@@ -16,6 +16,8 @@ GOC_Primitive::GOC_Primitive(GameObject* gameObjectAttached, int id)
 	
 	gameObject = gameObjectAttached;
 	GOC_type = GOC_Type::GOC_PRIMITIVE;
+
+	
 }
 
 GOC_Primitive::~GOC_Primitive()
@@ -28,6 +30,11 @@ void GOC_Primitive::Render()
 
 bool GOC_Primitive::Execute()
 {
+	if (primitive == NULL)
+	{
+		//CreateCube();
+		CreateCubeFromAABB();
+	}
 	return true;
 }
 
@@ -38,12 +45,32 @@ void GOC_Primitive::DeletePrimitive()
 	primitive = NULL;
 }
 
+void GOC_Primitive::CreateCubeFromAABB()
+{
+	GOC_MeshRenderer* comp_mesh = (GOC_MeshRenderer*)gameObject->GetComponent(GOC_Type::GOC_MESH_RENDERER);
+
+	AABB bbox = comp_mesh->GetMesh().bbox;
+
+	float3 size = bbox.Size().xyz();
+	float3 centerPos = bbox.CenterPoint();
+	vec3 pos = gameObject->transform->GetPosition();
+	
+
+	Prim_Cube* cube = new Prim_Cube(size.x, size.y, size.z);
+
+	App->physics->AddCube(cube, 0);
+	//cube->SetRotation(angle * RADTODEG, vec3(x, y, z));
+	cube->SetPos(pos.x + centerPos.x, pos.y + centerPos.y, pos.z + centerPos.z);
+	primitive = cube;
+}
+
 void GOC_Primitive::CreateCube()
 {
 	if (primitive != NULL) DeletePrimitive();
 
 	GOC_Transform* comp_transform = (GOC_Transform*)gameObject->GetComponent(GOC_Type::GOC_TRANSFORM);
 	GOC_MeshRenderer* comp_mesh = (GOC_MeshRenderer*)gameObject->GetComponent(GOC_Type::GOC_MESH_RENDERER);
+	float3 centerPos = comp_mesh->GetMesh().bbox.CenterPoint();
 	vec3 pos = gameObject->transform->GetPosition();//comp_transform->GetPosition();
 	vec size = comp_mesh->GetMesh().bbox.Size();
 	float3 rot = gameObject->transform->rotationEulerLocal;
@@ -79,7 +106,7 @@ void GOC_Primitive::CreateCube()
 
 	App->physics->AddCube(cube, 0);
 	cube->SetRotation(angle * RADTODEG, vec3(x, y, z));
-	cube->SetPos(pos.x, pos.y + size.y/2, pos.z);
+	cube->SetPos(pos.x + centerPos.x, pos.y + centerPos.y, pos.z + centerPos.z);
 	primitive = cube;
 }
 
