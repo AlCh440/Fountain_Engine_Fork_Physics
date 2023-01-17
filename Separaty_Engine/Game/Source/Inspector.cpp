@@ -748,11 +748,29 @@ update_status Inspector::Update(float dt)
 						if (ImGui::CollapsingHeader("Primitive"))
 						{
 
+							if (ImGui::DragFloat("Change mass", &prim->GetGameObject()->mass), .005f, 0.0f, 0.0f, "%.2f");
+							{
+								//prim->ChangeMass(prim->GetGameObject()->mass);
+							};
+
+							if (ImGui::Button("Apply mass"))
+							{
+								prim->ChangeMass(prim->GetGameObject()->mass);
+							}
+
 							if (ImGui::Button("Create Primitive"))
 							{
 								if (prim->primitive == NULL)
 								{
 									prim->CreateCube();
+								}
+							}
+
+							if (ImGui::Button("Create Primitive With Mass"))
+							{
+								if (prim->primitive == NULL)
+								{
+									prim->CreateCube(1.0f);
 								}
 							}
 

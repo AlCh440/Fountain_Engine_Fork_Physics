@@ -52,7 +52,7 @@ public:
 	}
 
 	GameObject* CreateChildren();
-	
+	float mass = 1;
 
 	std::vector<GameObject*> GetChildren() const
 	{

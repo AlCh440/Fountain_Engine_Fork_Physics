@@ -224,7 +224,7 @@ bool Scene::Start()
 		texture = (GOC_Texture*)go->GetComponent(GOC_Type::GOC_TEXTURE);
 		texture->SetTexture(App->engineSystem->GetAllTextures()[6]);
 		texture->UpdateMeshRendererTexture();
-
+		go->mass = 0;
 		go->transform->translationLocal.translate(-1.6, 0, -0.6);
 		go->transform->ApplyTransformations();
 
@@ -334,7 +334,7 @@ bool Scene::Start()
 		go->transform->rotationLocal[0] = 1;		go->transform->rotationLocal[1] = 0;		go->transform->rotationLocal[2] = 0;
 		go->transform->rotationLocal[4] = 0;		go->transform->rotationLocal[5] = 0;		go->transform->rotationLocal[6] = -1;
 		go->transform->rotationLocal[8] = 0;		go->transform->rotationLocal[9] = 1;		go->transform->rotationLocal[10] = 0;
-
+		
 		go->transform->ApplyTransformations();
 
 		//Game Object 15
