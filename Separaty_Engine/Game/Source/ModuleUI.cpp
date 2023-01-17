@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "UIFunctions.h"
+#include "ModulePhysics.h"
 
 
 #include <string> 
@@ -278,6 +279,23 @@ update_status ModuleUI::Update(float dt)
 			{
 				App->engineSystem->GetCurrentScene()->CreateNewGameObjectVechicle();
 			}
+			ImGui::Separator();
+			if (ImGui::MenuItem("Create Constraint"))
+			{
+
+				object2 = new Prim_Cube(4, 4, 4);
+				object1 = new Prim_Cube(4, 4, 4);
+
+				decorBody = App->physics->AddCube(object2, 1000.0f);
+
+				decorBody2 = App->physics->AddCube(object1, 1000.0f);
+
+				decorBody2->SetPos(-5, 0, -15);
+				decorBody->SetPos(-5, 0, -10);
+
+				App->physics->AddConstraintP2P(*decorBody2->body, *decorBody->body, BOTTOM_LEFT_CORNER, BOTTOM_RIGHT_CORNER);
+			}
+
 			
 			/*ImGui::Separator();
 

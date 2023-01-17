@@ -50,6 +50,13 @@ enum update_status
 	UPDATE_ERROR
 };
 
+enum RoadTypes
+{
+	
+	BOTTOM_RIGHT_CORNER,
+	BOTTOM_LEFT_CORNER
+};
+
 
 
 

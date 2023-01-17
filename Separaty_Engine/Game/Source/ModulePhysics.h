@@ -32,7 +32,14 @@ public:
 	PhysBody* AddCube(Prim_Cube* cube, float mass = 1.0f);
 	PhysVehicle* AddVehicle(const VehicleInfo& info, btDefaultVehicleRaycaster* vehicle_raycaster);
 
+	PhysBody* decorBody2;
+	PhysBody* decorBody;
+
+	void AddConstraintP2P(btRigidBody& bodyA, btRigidBody& bodyB, const vec3& anchorA, const vec3& anchorB);
+
 	btDiscreteDynamicsWorld* world;
+
+	p2List<btTypedConstraint*> constraints;
 
 private:
 

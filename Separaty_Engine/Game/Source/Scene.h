@@ -27,6 +27,7 @@ public:
 	
 	GameObject* CreateNewGameObject();
 	ModuleVehicle* CreateNewGameObjectVechicle();
+	ModuleVehicle* CreateNewGameObjectP2PConstraint();
 
 	std::vector<GameObject*> GetGameObjectList() const
 	{

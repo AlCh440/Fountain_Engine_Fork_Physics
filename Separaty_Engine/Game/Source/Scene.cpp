@@ -802,6 +802,11 @@ ModuleVehicle* Scene::CreateNewGameObjectVechicle()
 	return go;
 }
 
+/*ModulePhysics* Scene::CreateNewGameObjectP2PConstraint()
+{
+
+}*/
+
 GameObject* Scene::GetSelectedGameObject()
 {
 	for (GameObject* go : gameObjects)

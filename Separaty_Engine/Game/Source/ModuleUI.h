@@ -58,6 +58,12 @@ public:
 	bool createCone = false;
 	bool createPlane = false;
 
+	Prim_Cube* object2;
+	Prim_Cube* object1;
+
+	PhysBody* decorBody2;
+	PhysBody* decorBody;
+
 
 	bool cleanPrimitives = false;
 

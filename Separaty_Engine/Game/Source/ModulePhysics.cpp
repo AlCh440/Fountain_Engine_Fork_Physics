@@ -278,6 +278,19 @@ PhysVehicle* ModulePhysics::AddVehicle(const VehicleInfo& info, btDefaultVehicle
 }
 
 
+void ModulePhysics::AddConstraintP2P(btRigidBody& bodyA, btRigidBody& bodyB, const vec3& anchorA, const vec3& anchorB)
+{
+	btTypedConstraint* p2p = new btPoint2PointConstraint(
+		bodyA,
+		bodyB,
+		btVector3(anchorA.x, anchorA.y, anchorA.z),
+		btVector3(anchorB.x, anchorB.y, anchorB.z));
+	world->addConstraint(p2p);
+	constraints.add(p2p);
+	p2p->setDbgDrawSize(2.0f);
+}
+
+
 
 // ----------------------------------------------------------------------
 void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
